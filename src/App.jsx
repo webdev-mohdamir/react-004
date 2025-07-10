@@ -1,8 +1,3 @@
-import TaskForm from "./components/TaskForm.jsx";
-import TaskList from "@/components/TaskList";
-import Statistics from "@/components/Statistics";
-import "./App.css";
-
 const App = () => {
   return (
     <div className="app">
