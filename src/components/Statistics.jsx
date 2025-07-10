@@ -1,3 +1,5 @@
+import "./Statistics.css";
+
 const Statistics = () => {
   return <div>Statistics</div>;
 };
