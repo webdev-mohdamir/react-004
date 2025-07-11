@@ -3,8 +3,13 @@ import TaskList from "./components/TaskList";
 import Statistics from "./components/Statistics";
 
 import "./App.css";
+import { useState } from "react";
 
 const App = () => {
+  const [tasks, setTasks] = useState([]);
+
+  console.log(tasks);
+
   return (
     <div className="app">
       <header className="app-header">
@@ -16,7 +21,7 @@ const App = () => {
 
       <main className="app-main">
         {/* Task form */}
-        <TaskForm />
+        <TaskForm onTaskChange={setTasks} />
 
         {/* task list */}
         <TaskList />
