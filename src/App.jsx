@@ -3,12 +3,47 @@ import TaskList from "./components/TaskList";
 import Statistics from "./components/Statistics";
 
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
 
-  console.log(tasks);
+  // 1, 2, 3
+  // 2 -> 1 !== 2, 2 !== 2, 2 !== 3
+
+  const handleDelete = (id) => {
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+  };
+
+  const handleTaskStatus = (id) => {
+    // const updatedTasks = tasks.map((task) => {
+    //   if (task.id == id) {
+    //     task.completed = !task.completed;
+    //   }
+    //   return task;
+    // });
+
+    // setTasks(updatedTasks);
+
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  useEffect(() => {
+    const localTasks = JSON.parse(localStorage.getItem("tasks"));
+
+    if (localTasks.length > 0) {
+      setTasks(localTasks);
+    }
+  }, []);
+
+  // Save each time the tasks change
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   return (
     <div className="app">
@@ -24,10 +59,14 @@ const App = () => {
         <TaskForm onTaskChange={setTasks} />
 
         {/* task list */}
-        <TaskList />
+        <TaskList
+          tasks={tasks}
+          handleDelete={handleDelete}
+          handleTaskStatus={handleTaskStatus}
+        />
 
         {/* statistics */}
-        <Statistics />
+        <Statistics tasks={tasks} />
       </main>
     </div>
   );

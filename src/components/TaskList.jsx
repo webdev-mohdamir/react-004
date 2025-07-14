@@ -1,8 +1,7 @@
+import Task from "./Task";
 import "./TaskList.css";
 
-const tasks = [];
-
-const TaskList = () => {
+const TaskList = ({ tasks, handleDelete, handleTaskStatus }) => {
   if (tasks.length == 0) {
     return (
       <div className="empty-state">
@@ -13,7 +12,21 @@ const TaskList = () => {
     );
   }
 
-  return <div>TaskList</div>;
+  return (
+    <div>
+      {tasks.map((task) => (
+        <Task
+          key={task.id}
+          id={task.id}
+          title={task.title}
+          dueDate={task.dueDate}
+          completed={task.completed}
+          onDelete={handleDelete}
+          onComplete={handleTaskStatus}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default TaskList;

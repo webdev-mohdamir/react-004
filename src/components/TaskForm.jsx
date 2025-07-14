@@ -12,8 +12,10 @@ const TaskForm = ({ onTaskChange }) => {
 
     // Create task object
     const task = {
+      id: Date.now().toString(),
       title,
       dueDate,
+      completed: false,
     };
 
     // update the tasks
